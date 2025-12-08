@@ -1,4 +1,7 @@
 # CMPS 6610 Extra Credit Answers
+
+**Name:** Arjun Dadhwal
+
   
 In this extra credit assignment, we will test and review concepts you
    have learned since the midterm exam. Please add your written answers
