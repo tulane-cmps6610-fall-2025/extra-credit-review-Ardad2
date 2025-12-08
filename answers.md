@@ -26,7 +26,19 @@ I enjoyed writing down the recurrences and identifying the rights because once t
 
 Dynamic Programming (DP) also looks very simple on the surface, but it captures a lot of complex logic in a very structured way. It also connects quite nicely to the cost models and work span analysis: Not only are these solutions more efficient, but are often easier to reason about and can sometimes even be parallelized by filling the table in a structured way.
 
-1. **Divide and Conquer**
+2. **Divide and Conquer**
+
+- No, Divide and Conquer can be used on many problems where there is no notion of any "optimality", so they do not necessary need to have an optimal substructure property.
+- Counter example: Sorting (MergeSort / QuckSort)
+  -   Problem: Given an array A, output the elements of A in non-decreasing order.
+  -   We solve it by divide and conquer
+    -   Split A into two halves AL, AR.
+    -   Recursively sort AL and AR.
+    -   Merge the two sorted halves.
+ - This Divide and Conquer algorithm is not an optimization problem since there is exactly one correct sorted output and we are not choosing among may candidate solutions that have different costs. Therefore, a statement like "OPT(A) is built from OPT(Al) and OPT(Ar)" does not make sense since there is no objective function and no better or worse solution. Only "correct" and "incorrect".
+ - Divide and Conquer is a structural technique which can be applied to a lot of decision, search, and transfromation problems whereas the optimal substructure is a property of optimization problems.
+ - Therefore, problems that are solvable by Divide and Conquer do not necessarily satsify the optimal substructure property.
+   
 
 
 2. **Randomization**
