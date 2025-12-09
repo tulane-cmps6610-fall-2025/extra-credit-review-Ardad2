@@ -66,9 +66,9 @@ Dynamic Programming (DP) also looks very simple on the surface, but it captures 
 - 3b.
 - If we set the threshold to $\alpha = 10^c n \ln n$ for some constant $c > 0$:
   - $\Pr[X \geq 10^c n\ln n] \leq \frac{\mathbb{E}[X]}{10^c n\ln n} \leq \frac{cn\ln n}{10^c n\ln n} = \frac{c}{10^c} = O(10^{-c})$.
-- So the probability that Quicksort uses $10^c$ times the Master$(n\log n)$ work is at most on the ordr of $10^{-c}$, it decays exponentially in c but not in n.
+- So the probability that Quicksort uses $10^c$ times the $Θ(n\log n)$ work is at most on the ordr of $10^{-c}$, it decays exponentially in c but not in n.
 - Interpretation:
-  - Almost all the probaiblity mass of X is clustered around its expected value Master$(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
+  - Almost all the probaiblity mass of X is clustered around its expected value $Θ(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
 
  ________________________________________________________________________________________________________________________________________________________
 
