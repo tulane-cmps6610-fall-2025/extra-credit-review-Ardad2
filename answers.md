@@ -110,17 +110,27 @@ Dynamic Programming (DP) also looks very simple on the surface, but it captures 
    - Therefore, SJF yields an optimal schedule for minimizing average waiting time.
 
 
-
-
-
-
-
-
-_________________________________________________________________________________________
-
-
-
-
+________________________________________________________________________________________
 5. **Dynamic Programming**
+- **Example 1: Maximum span but no parallelism**
+  - Take a 1-dimensional DP where each state depends only on the immediately previous state, like for eg. prefix sums, Fibonacci.
+    - $\text{PS}(0) = 0$
+    - $\text{PS}(i) = \text{PS}(i - 1) + a_i, \quad i = 1, \ldots, n$
+- This is an optimal substructure recurrence, to get the sum of the first i elements we only need the optimal solution for the first i - 1 elements.
+- The recursion Direct Acyclic Graph (DAG) will be a simple chain:
+  - $\text{PS}(0) \to \text{PS}(1) \to \text{PS}(2) \to \cdots \to \text{PS}(n)$
+  - The span, the longest path length, would be $\Theta(n)$ since we have to compute the states in strict order and we can't compute two states in parallel.
+  - $W = \Theta(n)$, $S = \Theta(n)$ => parallelism = $W/S=\Theta(1)$, not possible.
+  - So this recurrence has a maximum span for its work, despite having an optimal substructure.
+- **Example 2: Polylogarithmic span DP**
+  - Take a DP where the optimal substructure splits the problem into two independent sub problems of about half of the size, for eg. computing the sum of an array segment by segment.
+    - $\text{SUM}(l, l) = a_l$,
+    - $\text{SUM}(l, r) = \text{SUM}(l, m) + \text{SUM}(m + 1, r), \quad m = \left\lfloor \frac{l+r}{2} \right\rfloor$
+  - This is an optimal substructure recurrence as the optimal solution, the sum of $a_l,\ldots,a_r$ is obtained by optimally solving the left half $[l, m]$ and right half $[m + 1, r]$ and then combining them.
+  - The recursion Directed Acylic Graph (DAG) is a balanced binary tree of the subproblems and all the subproblems on the same level are independent of each other and can be computed in parallel.
+  - The number of levels is the height of a binary tree, which is $\Theta(\log n)$, so the Span $(S) = \Theta(\log n)$.
+  - The work is still $W = \Theta(n)$ since every element involved would have $O(1)$ work.
+  - This recurrence has a polylogarithmic span and a very high parallelism $(W/S = \Theta(n/\log n))$.
 
-6. **Graphs**
+
+7. **Graphs**
