@@ -54,21 +54,19 @@ Dynamic Programming (DP) also looks very simple on the surface, but it captures 
 - Markov's inequality states that for any $\alpha > 0$
   - $\Pr[X \geq \alpha] \leq \frac{\mathbb{E}[X]}{\alpha}$
  ________________________________________________________________________________________________________________________________________________________
-- 3a.
-- The probability that Quicksort does $\Omega(n^2)$ comparisons.
-- $\Omega(n^2)$ means that at least $kn^2$ comparisons for some constant $k > 0$.
-- Setting $\alpha = kn^2$
-  - $\Pr[X \geq kn^2] \leq \frac{\mathbb{E}[X]}{kn^2} \leq \frac{cn\log n}{kn^2} = \frac{c}{k} \cdot \frac{\log n}{n} = O\left(\frac{\log n}{n}\right)$
-- So the probability that Quicksort takes quadratic times is at most $O\left(\frac{\log n}{n}\right)$ which goes to 0 as n grows.
+**3a.**
+  - The probability that Quicksort does $\Omega(n^2)$ comparisons.
+  - $\Omega(n^2)$ means that at least $kn^2$ comparisons for some constant $k > 0$.
+  - Setting $\alpha = kn^2$
+    - $\Pr[X \geq kn^2] \leq \frac{\mathbb{E}[X]}{kn^2} \leq \frac{cn\log n}{kn^2} = \frac{c}{k} \cdot \frac{\log n}{n} = O\left(\frac{\log n}{n}\right)$
+  - So the probability that Quicksort takes quadratic times is at most $O\left(\frac{\log n}{n}\right)$ which goes to 0 as n grows.
 
- ________________________________________________________________________________________________________________________________________________________
-
-- 3b.
-- If we set the threshold to $\alpha = 10^c n \ln n$ for some constant $c > 0$:
-  - $\Pr[X \geq 10^c n\ln n] \leq \frac{\mathbb{E}[X]}{10^c n\ln n} \leq \frac{cn\ln n}{10^c n\ln n} = \frac{c}{10^c} = O(10^{-c})$.
-- So the probability that Quicksort uses $10^c$ times the $Θ(n\log n)$ work is at most on the ordr of $10^{-c}$, it decays exponentially in c but not in n.
-- Interpretation:
-  - Almost all the probaiblity mass of X is clustered around its expected value $Θ(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
+**3b.**
+  - If we set the threshold to $\alpha = 10^c n \ln n$ for some constant $c > 0$:
+    - $\Pr[X \geq 10^c n\ln n] \leq \frac{\mathbb{E}[X]}{10^c n\ln n} \leq \frac{cn\ln n}{10^c n\ln n} = \frac{c}{10^c} = O(10^{-c})$.
+  - So the probability that Quicksort uses $10^c$ times the $Θ(n\log n)$ work is at most on the ordr of $10^{-c}$, it decays exponentially in c but not in n.
+  - Interpretation:
+    - Almost all the probaiblity mass of X is clustered around its expected value $Θ(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
 
  _________________________________________________________________________________________
 
@@ -131,6 +129,32 @@ ________________________________________________________________________________
   - The number of levels is the height of a binary tree, which is $\Theta(\log n)$, so the Span $(S) = \Theta(\log n)$.
   - The work is still $W = \Theta(n)$ since every element involved would have $O(1)$ work.
   - This recurrence has a polylogarithmic span and a very high parallelism $(W/S = \Theta(n/\log n))$.
+________________________________________________________________________________________
+
+6. **Graphs**
+- Let $C$ be a cycle and $e_{\max} = (u, v)$ be its heaviest edge.
+- Assume that for contradiction there exists an MST $T$ of $G$ that does contain $e_{\max}$.
+  1. Remove $e_{\max}$ from $T$
+    - Since $T$ is a tree, deleting any edge disconnects it, so $T - e_{\max}$ splits in two two connected components.
+      - One contains $u$ and the contains $v$.
+    - Let the corresponding cut be $(S, V\backslash S)$ with $u$ part of $S$ and $v$ part of $V\backslash S$.
+  2. Looking back the cycle $C$.
+    - In the original graph, the endpoints $u$ and $v$ are also connected by the rest of the cycle $C \backslash \{e_{\max}\}$.
+    - Therefore, along the path from $u$ to $v$ on the cycle, there must be another edge $f$ that crosses the cut $(S, V \backslash S)$ since we move from the $u$ side to the $v$ side as we traverse the cylce.
+  3. Compare the weights
+    - Every edge on $C$ other than $e_{\max}$ has a weight strictly smaller than $w(e_{\max})$
+    - Particularly, $w(f) < w(e_{\max})$
+  4. Add $f$ instead of $e_{\max}$.
+    - Consider the new edge set
+      -  $T' = T - \{e_{\max}\} \cup \{f\}$
+    - $T'$ is still connected since we reconnected the two components using $f$.
+    - $T'$ has exactly $|V| - 1$ edges.
+    - Therefore, $T'$ is also a spanning tree.
+    - It's total weight:
+      - $w(T') = w(T) - w(e_{\max}) + w(f) < w(T)$
+    - Since $w(f) < w(e_{\max})$
+  5. Contradiction
+    - We constructed a spanning tree $T'$ which has a strictly smaller total weight than $T$ which contradicts the assumption that $T$ was a minimum spanning tree.
+    - Therefore, the assumption was false. No MST can contain $e_{\max}$, therefore, proving the cycle property.
 
 
-7. **Graphs**
