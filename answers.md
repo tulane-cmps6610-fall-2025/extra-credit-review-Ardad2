@@ -9,6 +9,7 @@ In this extra credit assignment, we will test and review concepts you
    `convert.sh`. Alternatively, you may scan and upload written
    answers to a file named `answers.pdf`.
 
+ ________________________________________________________________________________________________________________________________________________________
 
 
 1. **Algorithmic Paradigms**
@@ -26,6 +27,9 @@ I enjoyed writing down the recurrences and identifying the rights because once t
 
 Dynamic Programming (DP) also looks very simple on the surface, but it captures a lot of complex logic in a very structured way. It also connects quite nicely to the cost models and work span analysis: Not only are these solutions more efficient, but are often easier to reason about and can sometimes even be parallelized by filling the table in a structured way.
 
+ ________________________________________________________________________________________________________________________________________________________
+
+
 2. **Divide and Conquer**
 
 - No, Divide and Conquer can be used on many problems where there is no notion of any "optimality", so they do not necessary need to have an optimal substructure property.
@@ -38,14 +42,50 @@ Dynamic Programming (DP) also looks very simple on the surface, but it captures 
  - This Divide and Conquer algorithm is not an optimization problem since there is exactly one correct sorted output and we are not choosing among may candidate solutions that have different costs. Therefore, a statement like "OPT(A) is built from OPT(Al) and OPT(Ar)" does not make sense since there is no objective function and no better or worse solution. Only "correct" and "incorrect".
  - Divide and Conquer is a structural technique which can be applied to a lot of decision, search, and transfromation problems whereas the optimal substructure is a property of optimization problems.
  - Therefore, problems that are solvable by Divide and Conquer do not necessarily satsify the optimal substructure property.
-   
+    ________________________________________________________________________________________________________________________________________________________
 
 
-2. **Randomization**
 
-- 3a. 
+3. **Randomization**
+- Let X be the random variable: "number of comparisons performed by randomized Quicksort on an input of size n".
+- We know that:
+  - $\mathbb{E}[X] = O(n \log n)$
+- Write this as $\mathbb{E}[X] \leq cn\log n$ for some fixed constant $c > 0$.
+- Markov's inequality states that for any $\alpha > 0$
+  - $\Pr[X \geq \alpha] \leq \frac{\mathbb{E}[X]}{\alpha}$
+ ________________________________________________________________________________________________________________________________________________________
+- 3a.
+- The probability that Quicksort does $\Omega(n^2)$ comparisons.
+- $\Omega(n^2)$ means that at least $kn^2$ comparisons for some constant $k > 0$.
+- Setting $\alpha = kn^2$
+  - $\Pr[X \geq kn^2] \leq \frac{\mathbb{E}[X]}{kn^2} \leq \frac{cn\log n}{kn^2} = \frac{c}{k} \cdot \frac{\log n}{n} = O\left(\frac{\log n}{n}\right)$
+- So the probability that Quicksort takes quadratic times is at most $O\left(\frac{\log n}{n}\right)$ which goes to 0 as n grows.
+
+ ________________________________________________________________________________________________________________________________________________________
 
 - 3b.
+- If we set the threshold to $\alpha = 10^c n \ln n$ for some constant $c > 0$:
+  - $\Pr[X \geq 10^c n\ln n] \leq \frac{\mathbb{E}[X]}{10^c n\ln n} \leq \frac{cn\ln n}{10^c n\ln n} = \frac{c}{10^c} = O(10^{-c})$.
+- So the probability that Quicksort uses $10^c$ times the Master$(n\log n)$ work is at most on the ordr of $10^{-c}$, it decays exponentially in c but not in n.
+- Interpretation:
+  - Almost all the probaiblity mass of X is clustered around its expected value Master$(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
+
+ ________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 4. **Greedy Algorithms**
 
