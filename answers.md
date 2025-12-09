@@ -70,24 +70,56 @@ Dynamic Programming (DP) also looks very simple on the surface, but it captures 
 - Interpretation:
   - Almost all the probaiblity mass of X is clustered around its expected value $Θ(n\log n)$. The chance that the QuickSort runs much slower than its expectation by a factor liek $10^c$ is very small.
 
- ________________________________________________________________________________________________________________________________________________________
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ _________________________________________________________________________________________
 
 
 4. **Greedy Algorithms**
+- Show that the Shortest-Job-First (SJF) paradigm sorts the job by non-decreasing processing time and minimizes the average waiting time.
+- **Step 1: Reduce to minimizing total waiting time**
+  -   The cost
+    -   $C(S) = \frac{1}{n}\sum_{k=1}^{n} w_k$
+  -   is just the total waiting time divided by n.
+  -   Since n is fixed, minimizing $C(S)$ is the equivalent to minimizing.
+    -   $W_{\text{tot}}(S) = \sum_{k=1}^{n} w_k$.
+ - **Step 2: Local swap argument (Greedy-choice)**
+   - Consider an schedule S.
+   - Suppose somewhere in S there are two jobs that appear consecutively in the order:
+     - (job A, time a), (job b, time b)
+   - with $a > b$
+   - Let T be the total processing time of all the jobs scheduled before this paper.
+   - So under order A then B:
+     - Waiting time of A: $w_A = T$
+     - Waiting time of B: $w_B = T + a$
+    - Their contribution to the total waiting time is:
+      - $w_A + w_B = T + (T + a) = 2T + a$
+   - Now consider the swapped order B then A:
+     - Waiting time of B: $w'_B = T$
+     - Waiting time of A: $w'_A = T + b$
+   - Contribution becomes:
+     - $w'_A + w'_B = T + (T + b) = 2T + b$
+   - Since we assume $a > b$,
+     - $2T + b < 2T + a \Rightarrow w'_A + w'_B < w_A + w_B$
+   - All other jobs keep the same waiting times, so the total waiting time will strictly decrease when we swap a longer job in front of a shorter one <=> cost $C(S)$ strictly decreases.
+   - Therefore, in any optimal schedule there can be no adjacent pair with a longer job before a shorter job.
+ - **Step 3: Conclude global order**
+   - A schedule with no such inversions is exactly a schedule where the jobs are sorted by non-decreasing processing times, therefore:
+     - Starting from any schedule, we can repeatedly swap any inverted pair, the longer before the shorter.
+     - Each swap does not increase, but rather decreases the total waiting time.
+     - Eventually we will obtain the schedule that is sorted by processing times.
+     - Hence, the sorted schedule would have waiting time at most that of any other schedule.
+   - Therefore, SJF yields an optimal schedule for minimizing average waiting time.
+
+
+
+
+
+
+
+
+_________________________________________________________________________________________
+
+
+
 
 5. **Dynamic Programming**
 
